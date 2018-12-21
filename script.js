@@ -46,3 +46,27 @@ var options = {
 
 // add leaflet.pm controls to the map
 map.pm.addControls(options);
+
+// listen to when a new layer is created
+map.on('pm:create', function(e) {
+        // データを生成
+        const data = new Blob([JSON.stringify(e.layer._latlngs)], {
+            type:'application/json'
+        });
+        // ダウンロードURLを生成
+        const url = URL.createObjectURL(data);
+    
+        // ダウンロード用のボタン(見えない)を生成
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'rect.json';
+    
+        // スクリプトでクリック
+        link.click();
+    
+        // ダウンロードURLを削除
+        URL.revokeObjectURL(url);
+    
+});
+
+
