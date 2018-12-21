@@ -47,10 +47,16 @@ var options = {
 // add leaflet.pm controls to the map
 map.pm.addControls(options);
 
+const objectList = [];
 // listen to when a new layer is created
 map.on('pm:create', function(e) {
+
         // データを生成
-        const data = new Blob([JSON.stringify(e.layer._latlngs)], {
+        objectList.push(e.layer._latlngs);
+});
+
+function download() {
+        const data = new Blob([JSON.stringify(objectList, null, 4)], {
             type:'application/json'
         });
         // ダウンロードURLを生成
@@ -67,6 +73,6 @@ map.on('pm:create', function(e) {
         // ダウンロードURLを削除
         URL.revokeObjectURL(url);
     
-});
+};
 
 

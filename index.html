@@ -29,11 +29,23 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        z-index: 0;
       }
+
+      #download {
+       position: absolute;
+       z-index: 1;
+       top: calc(100% - 16px);
+       left: calc(100% - 16px);
+       transform: translate(-100%, -100%);
+       width: 4em;
+      }
+      
     </style>
   </head>
   <body>
     <div id="map"></div>
+    <button id="download" onclick="download();">ダウンロード</button>
 
     <a href="https://github.com/domoritz/leaflet-locatecontrol"></a>
 
