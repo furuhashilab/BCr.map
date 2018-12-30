@@ -17,8 +17,8 @@ var mapbox = new L.TileLayer(mapboxUrl, {
 
 var map = new L.Map('map', {
     layers: [mapbox],
-    center: [38.20, 139.00],
-    zoom: 6,
+    center: [36.651, 138.18],
+    zoom: 5,
     zoomControl: true
 });
 
