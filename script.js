@@ -70,9 +70,10 @@ map.on('pm:remove', function(e) {
             // 編集モード解除
             polygon.transform.disable();
 
-        if (e.layer === polygon) {
-            //  削除されたポリゴンをリストから削除
-            polygons.splice(i, 1);
+            if (e.layer === polygon) {
+                //  削除されたポリゴンをリストから削除
+                polygons.splice(i, 1);
+            }
         }
     }
 });
