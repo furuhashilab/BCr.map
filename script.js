@@ -80,31 +80,57 @@ map.on('pm:remove', function(e) {
 
 
 function download() {
+    const geoJson = {
+        type: "FeatureCollection",
+        features: []
+    };
+
+    geoJson.features = polygons.map(poly => {
+        console.log(poly._latlngs);
+        return {
+            type: "Feature",
+            properties: {},
+            geometry: {
+                type: "Polygon",
+                // latlngから配列に変換
+                coordinates: poly._latlngs.map(latlngs => {
+                    const lls = latlngs.map((latlng) => {
+                        return [
+                            latlng['lng'], latlng['lat']
+                        ];
+                    });
+                    // Polygonはfirstとlastが同じ座標である必要がある
+                    lls.push(lls[0]);
+                    return lls;
+                })
+            }
+        }
+    });
+
     // データを生成
         const data = new Blob(
             [
                 // polygonsからlatlngの作成してJSONに変換
-                JSON.stringify(polygons.map(poly => poly._latlngs), null, 4)
+                JSON.stringify(geoJson, null, 4)
             ], 
             {
                 type:'application/json'
         }
     );
 
-        // ダウンロードURLを生成
-        const url = URL.createObjectURL(data);
-    
-        // ダウンロード用のボタン(見えない)を生成
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'rect.json';
-    
-        // スクリプトでクリック
-        link.click();
-    
-        // ダウンロードURLを削除
-        URL.revokeObjectURL(url);
-    
+    // ダウンロードURLを生成
+    const url = URL.createObjectURL(data);
+
+    // ダウンロード用のボタン(見えない)を生成
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'rect.json';
+
+    // スクリプトでクリック
+    link.click();
+
+    // ダウンロードURLを削除
+    URL.revokeObjectURL(url);
 };
 
 
