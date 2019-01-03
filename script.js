@@ -56,7 +56,7 @@ map.on('pm:create', function(e) {
 
     // 回転・編集ができる図形を生成
     const polygon = L.polygon(e.layer._latlngs, { transform: true, draggable: true}).addTo(map);
-    polygon.transform.enable();
+    polygon.transform.setOptions({ uniformScaling: false }).enable();
 
     // 作成したポリゴンをリストに保存
     polygons.push(polygon);
