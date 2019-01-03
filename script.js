@@ -66,8 +66,9 @@ map.on('pm:create', function(e) {
 map.on('pm:remove', function(e) {
     for (const i in polygons) {
         const polygon = polygons[i];
-        // 編集モード解除
-        // polygon.transform.disable();
+        if (e.layer === polygon) {
+            // 編集モード解除
+            polygon.transform.disable();
 
         if (e.layer === polygon) {
             //  削除されたポリゴンをリストから削除
