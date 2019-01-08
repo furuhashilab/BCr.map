@@ -5,6 +5,13 @@ var osm = new L.TileLayer(osmUrl, {
     detectRetina: true
 });
 
+var gsimapsUrl='https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg';
+var gsimapsAttrib='Map data © <a href="https://maps.gsi.go.jp/">GSI</a>';
+var gsimaps = new L.TileLayer(gsimapsUrl, {
+    attribution: gsimapsAttrib,
+    detectRetina: true
+});
+
 // please replace this with your own mapbox token!
 var token = 'pk.eyJ1IjoiZG9tb3JpdHoiLCJhIjoiY2o0OHZuY3MwMGo1cTMybGM4MTFrM2dxbCJ9.yCQe43DMRqobazKewlhi9w';
 var mapboxUrl = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/{z}/{x}/{y}@2x?access_token=' + token;
@@ -16,7 +23,8 @@ var mapbox = new L.TileLayer(mapboxUrl, {
 });
 
 var map = new L.Map('map', {
-    layers: [mapbox],
+    //layers: [mapbox],
+    layers: [gsimaps],
     center: [37.66, 138.18],
     zoom: 5,
     zoomControl: true
